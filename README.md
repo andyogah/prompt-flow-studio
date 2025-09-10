@@ -1392,7 +1392,7 @@ result = client.execute_flow(
 )
 ```
 
-### **Video Tutorials**
+### **Video Tutorials (proposed)**
 - 🎥 [Getting Started (5 min)](https://youtube.com/watch?v=example)
 - 🎥 [Building Your First Flow (15 min)](https://youtube.com/watch?v=example)
 - 🎥 [A/B Testing Setup (10 min)](https://youtube.com/watch?v=example)
@@ -1518,29 +1518,11 @@ Absolutely! We have a plugin system for custom nodes. Check out our [Plugin Deve
 MongoDB (NoSQL) is recommended for rapid prompt iteration and flexible schemas. PostgreSQL is optional for complex analytics and structured reporting needs.
 </details>
 
-## 🏆 Awards & Recognition
 
-- 🥇 **Best Open Source AI Tool 2024** - DevOps Weekly
-- 🏅 **Innovation Award** - AI Engineering Summit
-- ⭐ **Rising Star** - GitHub Collections
-- 🎖️ **Community Choice** - Product Hunt
-
-## 📞 Professional Services
-
-Need help with deployment, customization, or training? Our team offers:
-
-- **Implementation Services**: Custom deployment and setup
-- **Training Workshops**: Team training and best practices
-- **Custom Development**: Tailored features and integrations
-- **24/7 Support**: Enterprise support packages
-
-📧 **Contact**: enterprise@prompt-flow.dev  
-🌐 **Website**: https://prompt-flow.dev/services
 
 ---
-
+</br></br>
 <div align="center">
-  <p><strong>Built with ❤️ by the Prompt Flow Community</strong></p>
   <p>
     <a href="https://github.com/yourusername/prompt-flow/stargazers">⭐ Star us on GitHub</a> •
     <a href="https://twitter.com/promptflow">🐦 Follow on Twitter</a> •
@@ -1548,6 +1530,6 @@ Need help with deployment, customization, or training? Our team offers:
   </p>
   
   <p style="margin-top: 20px; font-size: 12px; color: #6b7280;">
-    © 2024 Prompt Flow. Licensed under MIT. All trademarks are property of their respective owners.
+    © 2025 Prompt Flow. Licensed under MIT. All trademarks are property of their respective owners.
   </p>
 </div>

@@ -1,0 +1,114 @@
+services:
+  # MongoDB - Document database for flows and prompts
+  mongodb:
+    image: mongo:7.0
+    container_name: prompt-flow-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: prompt_flow
+    volumes:
+      - mongodb_data:/data/db
+      - ./scripts/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    networks:
+      - prompt-flow-network
+
+  # Qdrant - Vector database for semantic search
+  qdrant:
+    image: qdrant/qdrant:v1.7.3
+    container_name: prompt-flow-qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    environment:
+      QDRANT__SERVICE__HTTP_PORT: 6333
+      QDRANT__SERVICE__GRPC_PORT: 6334
+    networks:
+      - prompt-flow-network
+
+  # Redis - Caching and real-time data
+  redis:
+    image: redis:7.2-alpine
+    container_name: prompt-flow-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
+    networks:
+      - prompt-flow-network
+
+  # Backend API
+  backend:
+    profiles: ["full"]
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: prompt-flow-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      # Database Configuration
+      MONGODB_URL: mongodb://admin:password123@mongodb:27017/prompt_flow?authSource=admin
+      QDRANT_URL: http://qdrant:6333
+      REDIS_URL: redis://redis:6379/0
+      
+      # API Configuration
+      SECRET_KEY: your-super-secret-key-change-in-production
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      
+      # CORS Configuration
+      ALLOWED_ORIGINS: '["http://localhost:3000", "http://127.0.0.1:3000"]'
+      
+      # Environment
+      ENVIRONMENT: development
+      LOG_LEVEL: INFO
+      
+      # AI Service Configuration (add your keys)
+      # OPENAI_API_KEY: your-openai-api-key
+      # AZURE_OPENAI_ENDPOINT: your-azure-endpoint
+      # AZURE_OPENAI_API_KEY: your-azure-api-key
+    depends_on:
+      - mongodb
+      - qdrant
+      - redis
+    volumes:
+      - ./backend:/app
+    networks:
+      - prompt-flow-network
+
+  # Frontend React App
+  frontend:
+    profiles: ["full"]
+    build: ./frontend
+    container_name: prompt-flow-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - prompt-flow-network
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+    driver: local
+  qdrant_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  prompt-flow-network:
+    driver: bridge

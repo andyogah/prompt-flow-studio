@@ -1,6 +1,6 @@
 # Prompt Flow - AI-Powered Prompt Builder & Execution Engine
 
-A comprehensive platform for building, managing, and executing AI prompt flows with visual flow builder, A/B testing, and evaluation capabilities.
+Visual flow builder for AI prompt engineering—a comprehensive platform with drag-and-drop interface to create, test, and optimize prompt flows with real-time execution. Solves iteration bottlenecks with Git-like versioning, A/B testing, and semantic search. Multi-database architecture (MongoDB + Qdrant + Redis) enables enterprise-grade flexibility, self-hosted security, and vendor independence. Built for prompt engineers seeking rapid experimentation without vendor lock-in.
 
 ## 🚀 Features
 

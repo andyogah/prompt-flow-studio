@@ -1,0 +1,11 @@
+# Generated 2026-08-15 from a scan of imports across the repo.
+# Note: sentence-transformers pulls in torch (multi-GB install).
+fastapi
+numpy
+promptflow
+pydantic
+pydantic-settings
+scipy
+sentence-transformers
+sqlalchemy
+uvicorn
